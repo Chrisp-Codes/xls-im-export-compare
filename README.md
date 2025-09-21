@@ -25,7 +25,7 @@ Das manuelle Vergleichen von Import- und Exportdaten war zeitaufwendig und fehle
 Dieses Tool automatisiert den Prozess und liefert ein klares, prüfbares Ergebnis.
 
 ## Nutzung
-1. Tool starten (`python compare_app.py` oder via kompilierte `.exe`).  
+1. Tool starten (`imexportchk.py` oder via kompilierte `.exe`).  
 2. Folgende Dateien auswählen:
    - Import-Datei  
    - Export-Datei  
