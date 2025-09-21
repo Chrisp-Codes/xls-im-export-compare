@@ -25,7 +25,7 @@ Manual verification of import vs. export was error-prone and time-consuming.
 This tool automates the process and provides a clear, auditable result.
 
 ## Usage
-1. Run the tool (`python compare_app.py` or via compiled `.exe`).  
+1. Run the tool (`imexportchk.py` or via compiled `.exe`).  
 2. Select:
    - Import file  
    - Export file  
