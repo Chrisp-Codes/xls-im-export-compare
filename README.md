@@ -1,62 +1,65 @@
-# Excel Import-Export Vergleichstool (POC)
+# Excel Import Verifier
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Status](https://img.shields.io/badge/status-POC-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 [![English](https://img.shields.io/badge/README-English-informational?style=flat-square)](README_en.md)
 [![Deutsch](https://img.shields.io/badge/README-Deutsch-informational?style=flat-square)](README.md)
 
-## Überblick
-Dieses Repository enthält ein **Proof of Concept** für ein Python-Tool, das eine Importdatei mit dem zugehörigen Exportergebnis in Excel vergleicht.  
-Ziel ist es, zu prüfen, ob ein Import erfolgreich war, und Abweichungen automatisch zu markieren – so entfällt die fehleranfällige manuelle Kontrolle.
+## Problem
+
+Nach einem Import in HR-Systeme gibt es oft keine sauberen Logs die zeigen ob alle Daten korrekt übernommen wurden. Der manuelle Abgleich von Import- und Exportdatei ist zeitaufwendig und fehleranfällig — bei 500 Mitarbeitern kann das 40+ Minuten dauern.
+
+## Lösung
+
+Dieses Tool vergleicht Import- und Exportdatei automatisch und markiert Abweichungen direkt in der Importdatei. Ergebnis in 2 Minuten statt 40.
+
+## Demo
+
+![Excel Import Verifier Demo](demo.gif)
 
 ## Funktionen
-- Benutzerfreundliche **GUI mit Tkinter** zur Dateiauswahl  
-- Vergleicht zwei Excel-Dateien (Import vs. Export)  
-- Abgleich von Mitarbeitern anhand **Personalnummer, Vorname, Nachname** (mindestens 2 von 3 müssen übereinstimmen)  
-- Markiert Abweichungen direkt in der Import-Datei:
-  - **Rot**: kein Treffer oder Unterschiede in den Feldern  
-  - **Orange**: mehrere mögliche Treffer gefunden  
-- Feldspezifische Vergleichslogik:
-  - Namen (case-insensitive, ignoriert Leerzeichen und Bindestriche)  
-  - E-Mail (case-insensitive)  
-  - Datumsfelder (normalisiert auf `TT.MM.JJJJ`)  
-  - Bestimmte HR-Felder (z. B. Familienstand, Elterneigenschaft)  
-- Speichert das Ergebnis als neue Excel-Datei mit markierten Abweichungen  
 
-## Motivation
-In einem Projekt war der Erfolg von Importen unsicher, da das System keine sauberen Logs erzeugte.  
-Das manuelle Vergleichen von Import- und Exportdaten war zeitaufwendig und fehleranfällig.  
-Dieses Tool automatisiert den Prozess und liefert ein klares, prüfbares Ergebnis.
+- GUI zur Dateiauswahl — kein Code-Kontakt nötig
+- Vergleicht zwei Excel-Dateien (Import vs. Export)
+- Mitarbeiter-Matching anhand Personalnummer, Vorname, Nachname (mindestens 2 von 3)
+- Markierungen direkt in der Importdatei:
+  - **Rot** — kein Treffer oder Abweichung in einzelnen Feldern
+  - **Orange** — mehrere mögliche Treffer gefunden
+- Feldspezifische Vergleichslogik:
+  - Namen (ignoriert Groß-/Kleinschreibung, Leerzeichen, Bindestriche)
+  - E-Mail (case-insensitive)
+  - Datumsfelder (normalisiert auf `TT.MM.JJJJ`)
+  - HR-Felder wie Familienstand, Elterneigenschaft
+- Speichert Ergebnis als neue Excel-Datei
 
 ## Nutzung
-1. Tool starten (`imexportchk.py` oder via kompilierte `.exe`).  
-2. Folgende Dateien auswählen:
-   - Import-Datei  
-   - Export-Datei  
-   - Name der Ergebnisdatei  
-3. Vergleich starten.  
-4. Das Tool speichert eine neue Excel-Datei, in der Abweichungen direkt im Import markiert sind.
 
-## Beispiel
-- Eingabe:  
-  - Import-Datei mit Mitarbeiterstammdaten  
-  - Export-Datei nach Systemimport  
-- Ausgabe:  
-  - Kopie der Import-Datei mit hervorgehobenen Unterschieden  
+1. Abhängigkeiten installieren:
+```bash
+pip install openpyxl
+```
+2. Tool starten:
+```bash
+python imexportchk.py
+```
+3. Import-Datei, Export-Datei und Ausgabepfad auswählen
+4. Vergleich starten
+
+## Testdaten
+
+Beispieldateien findest du im Ordner `example_data/`.
 
 ## Status
-- Proof of Concept (POC)  
-- Nicht für den produktiven Einsatz gedacht  
-- Getestet mit HR-/Payroll-ähnlichen Excel-Strukturen (bis ~500 Zeilen)  
+
+Entwickelt und getestet mit anonymisierten HR-Daten.
+Nicht gegen alle HR-System-Exportformate getestet.
 
 ## Technologien
-- Python  
-- OpenPyXL  
-- Tkinter  
 
-## Hinweis
-Dies ist ein **POC-Projekt** und nicht offiziell freigegeben. Nutzung erfolgt auf eigene Verantwortung.
+- Python 3.x
+- openpyxl
+- tkinter
 
 ## Lizenz
-Dieses Projekt ist unter der MIT-Lizenz veröffentlicht.  
-Siehe die Datei [LICENSE](LICENSE) für Details.
+
+MIT License — siehe [LICENSE](LICENSE)
