@@ -1,62 +1,65 @@
-# Excel Import-Export Compare Tool (POC)
+# Excel Import Verifier
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Status](https://img.shields.io/badge/status-POC-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 [![English](https://img.shields.io/badge/README-English-informational?style=flat-square)](README_en.md)
 [![Deutsch](https://img.shields.io/badge/README-Deutsch-informational?style=flat-square)](README.md)
 
-## Overview
-This repository contains a **proof of concept** Python tool to compare an import file against the corresponding export result in Excel.  
-The goal is to verify whether an import was successful and to highlight mismatches automatically, reducing manual checks.
+## Problem
+
+After importing data into HR systems, there are often no clean logs confirming whether all records were transferred correctly. Manual comparison of import and export files is error-prone and time-consuming — with 500 employees, that can take 40+ minutes.
+
+## Solution
+
+This tool automatically compares import and export files and highlights mismatches directly in the import file. Results in 2 minutes instead of 40.
+
+## Demo
+
+![Excel Import Verifier Demo](demo.gif)
 
 ## Features
-- GUI built with **Tkinter** for easy file selection  
-- Compares two Excel files (import vs. export)  
-- Matches employees based on **Personalnummer, Vorname, Nachname** (at least 2 out of 3 must match)  
-- Highlights issues directly in the import file:
-  - **Red**: no match or mismatched fields  
-  - **Orange**: multiple potential matches found  
-- Field-specific comparison logic:
-  - Names (case-insensitive, ignores spaces and hyphens)  
-  - Emails (case-insensitive)  
-  - Dates (normalized to `DD.MM.YYYY`)  
-  - Certain HR fields (e.g. Familienstand, Elterneigenschaft)  
-- Saves results as a new Excel file with all mismatches clearly marked  
 
-## Motivation
-During one project, import success was uncertain because the system did not generate clean logs.  
-Manual verification of import vs. export was error-prone and time-consuming.  
-This tool automates the process and provides a clear, auditable result.
+- GUI for file selection — no coding required
+- Compares two Excel files (import vs. export)
+- Employee matching by Personalnummer, Vorname, Nachname (at least 2 of 3 must match)
+- Mismatches highlighted directly in the import file:
+  - **Red** — no match or field-level difference
+  - **Orange** — multiple potential matches found
+- Field-specific comparison logic:
+  - Names (ignores case, spaces, hyphens)
+  - Email (case-insensitive)
+  - Date fields (normalized to `DD.MM.YYYY`)
+  - HR fields like Familienstand, Elterneigenschaft
+- Saves result as a new Excel file
 
 ## Usage
-1. Run the tool (`imexportchk.py` or via compiled `.exe`).  
-2. Select:
-   - Import file  
-   - Export file  
-   - Output file name  
-3. Start the comparison.  
-4. The tool will save a new Excel file where mismatches are highlighted directly in the import data.
 
-## Example
-- Input:  
-  - Import file with employee master data  
-  - Export file after system import  
-- Output:  
-  - Import file copy with highlighted differences  
+1. Install dependencies:
+```bash
+pip install openpyxl
+```
+2. Run the tool:
+```bash
+python imexportchk.py
+```
+3. Select import file, export file, and output path
+4. Start comparison
+
+## Test Data
+
+Sample files are available in the `example_data/` folder.
 
 ## Status
-- Proof of Concept (POC)  
-- Not intended for production use  
-- Tested with HR/Payroll-like Excel structures (up to ~500 rows)  
+
+Developed and tested with anonymized HR data.
+Not tested against all HR system export formats.
 
 ## Technologies
-- Python  
-- OpenPyXL  
-- Tkinter  
 
-## Disclaimer
-This is a **POC project** and not officially released. Use at your own risk.
+- Python 3.x
+- openpyxl
+- tkinter
 
 ## License
-This project is licensed under the MIT License.  
-See the [LICENSE](LICENSE) file for details.
+
+MIT License — see [LICENSE](LICENSE)
